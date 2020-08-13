@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Lemon Menu Help</title>
+    <style>
+        body {
+            margin: 0px 50px;
+            background-color: #fcfcfa;
+        }
+        h1 {
+            color: #404040;
+            font-family: verdana;
+            text-align: center
+        }
+        div {
+            margin: 20px
+        }
+        span {
+            font-family: verdana;
+            color: #404040;
+        }
+    </style>
+    <script>
+        var drinks = [
+            'Classic Milk Tea','Boba Milk Tea','Milk tea with Taro Balls','Milk Tea with Oreo Cookies and Puff Cream','Milk Tea with Boba and Puff Cream','Jasmine Green Milk Tea','Winter Melon with Fresh Milk',
+            'Matcha Latte','Taro Milk Tea','Milk tea with Soy Milk Sub','Black Tea','Green Tea','Jasmine Green Tea with Salted Cheese','Black Tea with Salted Cheese','Milk Tea with Salted Cheese','Milk Tea with Tiramisu Salted Cheese','Strawberry Green Tea with Salted Cheese',
+            'Strawberry Black Tea with Salted Cheese','Matcha Latte with Salted Cheese','Chocolate with Salted Cheese','Mango Slushie with Salted Cheese','Blueberry Black Tea with Salted Cheese','Fresh Squeezed Lemon Green Tea','Fresh Squeezed Lemon Black Tea','Honey Lemon Jasmine Green Tea',
+            'Kumquat Lemon Jasmine Green Tea','Strawberry Lemonade','Yogurt Lemon Green Tea','Mango Lemonade','Winter Melon Lemonade','Mango Jasmine Green Tea','Fresh Grapefruit Green Tea','Strawberry Green Tea with Lychee Jelly',
+            'Strawberry Black Tea with Lychee Jelly','Passionfruit Green Tea','Apple Lemon Green Tea','Honey Blueberry Iced Tea','Mango Matcha','Oreo Smoothie','Strawberry Shortcake','Avocado Matcha','Mango Smoothie',
+            'Hot Classic Milk Tea','Hot Jasmine Green Milk Tea','Hot Boba Milk Tea','Hot Milk Tea with Taro Ball','Hot Milk Tea with Oreo Puff Cream','Hot Boba Milk Tea with Puff Cream','Matcha Latte',
+            'Matcha Latte with Rock Salt and Cheese','Green Tea with Rock Salt and Cheese','Black Tea with Rock Salt and Cheese','Milk Tea with Rock Salt and Cheese','Chocolate with Salted Cheese','Lemon Green Tea','Lemon Black Tea','Lemon Honey Green Tea','Kumquat Lemon Green Tea','Green Tea','Black Tea'
+        ];
+        var intros = [
+            'Hmm... I think I want a',
+            'Yeah uh...',
+            '... ... ...',
+            "Hi! I'll have one",
+            'Can I have the',
+            'Oh, get me the...',
+            "Hmm... uh... I guess I'll have a",
+            "Hi! Oh... uh... I'll take a",
+            "Lemme have a ",
+            "Let's see... Ok I'll take a",
+            "Could I please have a",
+            "I would like to order one",
+            "Can we get a"
+        ];
+
+        function loadOrder(){
+            var drink = drinks[Math.floor(Math.random()*drinks.length)].split(' ');
+            var intro = intros[Math.floor(Math.random()*intros.length)].split(' ');
+
+            if(Math.random() < 0.5){ var size = 'medium' }
+            else{ var size = 'large'; }
+            size = '<strong>'+size+'</strong>'
+
+            if(Math.random() < 0.5){ var sizeFirst = true }
+            else{ var sizeFirst = false; }
+
+            text = intro;
+            if(sizeFirst) text.push(size)
+            while(drink.length > 0){
+                text.push('<b>'+drink.shift()+'</b>');
+            }
+            if(!sizeFirst){
+                text.push(text.pop()+',')
+                text.push(size)
+            }
+            text.push(text.pop()+'.')
+
+            writeOrder(text);
+        }
+
+        function writeOrder(text){
+            document.getElementById("order").innerHTML = ''
+            addWord();
+            
+            function addWord(){
+                word = text.shift();
+                document.getElementById("order").innerHTML += '<span class="word">'+word+' </span>';
+                if(text.length > 0){
+                    if(word.includes('...') || word.includes('!') || word.includes(',')) setTimeout(addWord,500);
+                    else setTimeout(addWord,150);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>OUR FAVORITE HAPPY LEMON WORKER</h1>
+    <button type="button" onclick="loadOrder()">Next!</button>
+    <div id="order"></div>
+    
+    
+</body>
+</html>
